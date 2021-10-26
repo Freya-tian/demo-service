@@ -6,5 +6,4 @@ import com.itmo.microservices.demo.users.api.model.RegistrationRequest
 interface ProductsService {
     fun getAllProducts():CatalogModel
     fun addProduct(request: AddProductRequest)
-    fun addProductType(request: AddProductTypeRequest)
 }

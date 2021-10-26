@@ -37,14 +37,5 @@ class ProductsController(private val productsService: ProductsService) {
     )
     fun addProduct(@RequestBody request: AddProductRequest) = productsService.addProduct(request)
 
-    @PostMapping("/add/type")
-    @Operation(
-        summary = "add new product type",
-        responses = [
-            ApiResponse(description = "OK", responseCode = "200"),
-            ApiResponse(description = "Bad request", responseCode = "400", content = [Content()])
-        ]
-    )
-    fun addProductType(@RequestBody request: AddProductTypeRequest) = productsService.addProductType(request)
 
 }
