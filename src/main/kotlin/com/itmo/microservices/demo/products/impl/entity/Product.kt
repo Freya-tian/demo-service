@@ -1,14 +1,13 @@
-package com.itmo.microservices.demo.products.impl.entity;
+package com.itmo.microservices.demo.products.impl.entity
 
 import com.itmo.microservices.demo.products.api.model.ProductType
 import java.util.*
-import javax.persistence.Entity;
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
-import javax.persistence.Id;
+import javax.persistence.Id
 
 @Entity
-public class Product {
-
+class Product {
     @Id
     @GeneratedValue
     var id: UUID? = null
@@ -33,5 +32,4 @@ public class Product {
     override fun toString(): String {
         return "Product(id=$id, name=$name, description=$description, country=$country, price=$price, type=$type)"
     }
-
 }

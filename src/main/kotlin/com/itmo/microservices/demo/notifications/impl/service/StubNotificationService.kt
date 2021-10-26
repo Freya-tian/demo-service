@@ -5,6 +5,9 @@ import com.itmo.microservices.demo.notifications.impl.repository.NotificationUse
 import com.itmo.microservices.demo.notifications.impl.entity.NotificationUser
 import com.itmo.microservices.demo.tasks.api.model.TaskModel
 import com.itmo.microservices.demo.users.api.model.AppUserModel
+import com.itmo.microservices.demo.order.api.model.OrderModel
+import com.itmo.microservices.demo.payments.api.model.DeliveryModel
+import com.itmo.microservices.demo.payments.api.model.PaymentModel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.repository.findByIdOrNull
@@ -18,7 +21,7 @@ class StubNotificationService(private val userRepository: NotificationUserReposi
     }
 
     override fun processNewUser(user: AppUserModel) {
-        userRepository.save(modelToEntity(user))
+        //userRepository.save(modelToEntity(user))
         log.info("User ${user.username} (${user.email}) was created & should be notified (but who cares)")
     }
 
@@ -27,6 +30,14 @@ class StubNotificationService(private val userRepository: NotificationUserReposi
             log.info("User ${task.assignee} (${it.email}) was assigned to task ${task.title} & should be notified (but who cares)")
         }
     }
+
+    override fun processPayment(payment: PaymentModel) {
+        when(payment.status){
+            0->log.info("Payment at ${payment.date},user: ${payment.user?.username} successful")
+            1->log.info("Payment at ${payment.date},user: ${payment.user?.username} not successful")
+        }
+    }
+
 
     private fun modelToEntity(user: AppUserModel): NotificationUser = NotificationUser(
         username = user.username,
