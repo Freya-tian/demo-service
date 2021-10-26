@@ -5,8 +5,10 @@ package com.itmo.microservices.demo.users.api
 import com.itmo.microservices.demo.DemoServiceApplication
 
 import com.itmo.microservices.demo.users.api.service.UserService
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -23,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [DemoServiceApplication::class])
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.JVM)
 class UserControllerTest {
     @Autowired
     lateinit var userService: UserService
@@ -41,7 +44,7 @@ class UserControllerTest {
 //        print(res)
 
 
-          var mvcResult: MockHttpServletResponse = mockMvc.perform(
+          mockMvc.perform(
             MockMvcRequestBuilders.post("http://127.0.0.1:8080/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
@@ -59,17 +62,16 @@ class UserControllerTest {
         ).andReturn()
             .response
             .apply(::println)
-    auth(userName,password)
     }
-
-    fun auth(userName:String,pwd:String){
+    @Test
+    fun auth(){
         var mvcResult: MockHttpServletResponse = mockMvc.perform(
             MockMvcRequestBuilders.post("http://127.0.0.1:8080/authentication")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                     {
                               "username": "$userName",
-                              "password": "$pwd"
+                              "password": "$password"
                             }
                 """.trimIndent()) .accept(MediaType.APPLICATION_JSON)
         ).andReturn()
@@ -79,7 +81,6 @@ class UserControllerTest {
         println(mvcResult.contentAsString)
         accessToken = mvcResult.contentAsString.substring(16,226)
         println(accessToken)
-        println("--------------------------------------------")
         getAccountData()
         deleteCurrentUser()
     }
