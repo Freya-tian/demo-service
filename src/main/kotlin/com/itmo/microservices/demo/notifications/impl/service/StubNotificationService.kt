@@ -25,13 +25,6 @@ class StubNotificationService(private val userRepository: NotificationUserReposi
         //userRepository.save(modelToEntity(user))
         log.info("User ${user.username} (${user.email}) was created & should be notified (but who cares)")
     }
-
-    override fun processAssignedTask(task: TaskModel) {
-        userRepository.findByIdOrNull(task.assignee)?.let {
-            log.info("User ${task.assignee} (${it.email}) was assigned to task ${task.title} & should be notified (but who cares)")
-        }
-    }
-
     override fun processPayment(payment: PaymentModel) {
         when(payment.status){
             0->log.info("Payment at ${payment.date},user: ${payment.user?.username} successful")

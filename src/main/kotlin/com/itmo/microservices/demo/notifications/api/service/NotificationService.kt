@@ -9,7 +9,6 @@ import com.itmo.microservices.demo.products.api.model.ProductModel
 
 interface NotificationService {
     fun processNewUser(user: AppUserModel)
-    fun processAssignedTask(task: TaskModel)
     fun processPayment(payment:PaymentModel)
     fun processAddProduct(product:ProductModel)
 }
