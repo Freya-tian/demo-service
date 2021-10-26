@@ -24,8 +24,6 @@ class DefaultProductsService(private val productsRepository: ProductsRepository,
     override fun getAllProducts(): CatalogModel {
         eventBus.post(ProductGotEvent("all products got"))
         eventLogger.info(ProductsServiceNotableEvents.EVENT_PRODUCTS_GOT)
-
-        //now, nothing in database, it will return "{products:[]}"
         return CatalogModel(products = productsRepository.findAll())
     }
 
