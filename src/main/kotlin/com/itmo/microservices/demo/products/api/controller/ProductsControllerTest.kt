@@ -28,7 +28,7 @@ class ProductsControllerTest {
 
     @Test
     fun addProduct() {
-        var mvcresult: MockHttpServletResponse = mockMvc.perform(
+        var mvcResult: MockHttpServletResponse = mockMvc.perform(
             MockMvcRequestBuilders.post("/products/add/product")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
@@ -47,15 +47,12 @@ class ProductsControllerTest {
             .response
             .apply(::println)
 
-        println("------------")
-        println(mvcresult.status==200)
-
-
+        assert(mvcResult.status==200)
     }
 
     @Test
     fun getProductCatalog() {
-        var mvcresult: MockHttpServletResponse = mockMvc.perform(
+        var mvcResult: MockHttpServletResponse = mockMvc.perform(
             MockMvcRequestBuilders.get("/products/catalog")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.ALL)
@@ -63,11 +60,7 @@ class ProductsControllerTest {
             .andReturn()
             .response
             .apply(::println)
-        println("------------")
-        println(mvcresult.status)
-        println(mvcresult.contentAsString)
+        assert(mvcResult.status==200)
+        println(mvcResult.contentAsString)
     }
-
-
-
 }
